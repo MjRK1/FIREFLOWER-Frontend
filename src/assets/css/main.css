@@ -1,0 +1,49 @@
+@import 'fonts.css';
+
+#app {
+    min-height: 115vh;
+}
+
+body {
+    background-color: var(--color-white);
+    color: var(--color-black);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+a {
+    color: var(--color-black);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+:root {
+    /*BASE*/
+    --color-white: #FEFEFE;
+    --color-black: #000000;
+    --color-grey0: #F8F8F8;
+    --color-grey1: #EFEFEF;
+    --color-grey2: #DCDCDC;
+    --color-grey3: #AFAFAF;
+    --color-grey4: #8E8E8E;
+    --color-grey5: #555556;
+
+    --color-green0: #F2FDED;
+    --color-green1: #039C55;
+
+    --color-red0: #FFEEEE;
+
+    --color-blue0: #DEEFFF;
+    --color-blue1: #6AB8FF;
+
+    --color-purple0: #F8EEFF;
+
+    --color-yellow0: #FFFEDE;
+
+    --color-orange0: #FFDDCA;
+    --color-orange1: #FF7A2F;
+
+    --color-error: #FF7474;
+    --color-red: red;
+
+}
