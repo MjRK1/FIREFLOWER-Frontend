@@ -33,6 +33,7 @@ module.exports = {
         "no-confusing-arrow": "error",
         "react/no-deprecated": "warn",
         "no-nested-ternary": "error",
+        "react/function-component-definition": 0,
         "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
         "max-classes-per-file": ["error", 1],
         "class-methods-use-this": "error",

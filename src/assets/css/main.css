@@ -20,7 +20,7 @@ a {
 :root {
     /*BASE*/
     --color-white: #FEFEFE;
-    --color-black: #000000;
+    --color-black: #333333;
     --color-grey0: #F8F8F8;
     --color-grey1: #EFEFEF;
     --color-grey2: #DCDCDC;
@@ -29,7 +29,8 @@ a {
     --color-grey5: #555556;
 
     --color-green0: #F2FDED;
-    --color-green1: #039C55;
+    --color-green1: #51E5A1;
+    --color-green2: #039C55;
 
     --color-red0: #FFEEEE;
 
@@ -40,7 +41,7 @@ a {
 
     --color-yellow0: #FFFEDE;
 
-    --color-orange0: #FFDDCA;
+    --color-orange0: #faccb2;
     --color-orange1: #FF7A2F;
 
     --color-error: #FF7474;

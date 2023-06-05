@@ -1,0 +1,60 @@
+.c-button {
+  box-sizing: border-box;
+  border: 1px solid var(--color-orange1);
+  border-radius: 12px;
+  height: 40px;
+  font-family: 'Noto Sans Medium', sans-serif;
+  font-size: 16px;
+  padding: 0.2em 2.6em;
+  text-align: center;
+  transition: .2s ease-in-out;
+  cursor: pointer;
+}
+button.c-button:focus, button.c-button:active, button.c-button:hover {
+  outline: 0;
+}
+.c-button:not(.c-button--disabled):hover {
+  opacity: .85;
+}
+.c-button--theme-default {
+  border-color: var(--color-orange1);
+  background-color: var(--color-orange1);
+  color: var(--color-white);
+}
+.c-button--theme-secondary {
+  border-color: var(--color-orange0);
+  background-color: var(--color-orange0);
+  color: var(--color-black);
+}
+.c-button--theme-green {
+  border-color: var(--color-green1);
+  background-color: var(--color-green1);
+  color: var(--color-white);
+}
+.c-button--theme-red {
+  background-color: var(--color-error);
+  border-color: var(--color-error);
+  color: var(--color-white);
+}
+.c-button--size-s {
+  min-width: 125px;
+  padding-right: 1.2em;
+  padding-left: 1.2em;
+}
+.c-button--size-m {
+  min-width: 120px;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+.c-button--size-l {
+  min-width: 316px;
+  padding-left: 2.6em;
+  padding-right: 2.6em;
+}
+.c-button--disabled {
+  opacity: .65;
+  cursor: not-allowed;
+}
+.c-button--stretched {
+  width: 100%;
+}
