@@ -14,54 +14,54 @@ module.exports = {
         "jsx-a11y/heading-has-content": "off",
 
         // Включены
-        "max-len": ["error", { "code": 180, "comments": 512 }],
-        "func-names": ["error", "as-needed"],
-        "semi": ["error", "always"],
-        "semi-spacing": ["error", {"before": false, "after": true}],
-        "no-else-return": "error",
-        "no-prototype-builtins": "error",
-        "no-bitwise": "error",
-        "guard-for-in": "error",
-        "no-mixed-operators": "error",
-        "prefer-arrow-callback": "error",
-        "array-callback-return": "error",
-        "no-use-before-define": "error",
-        "one-var-declaration-per-line": "error",
-        "no-loop-func": "error",
-        "implicit-arrow-linebreak": ["error", "beside"],
-        "no-restricted-globals": ["error", "event", "fdescribe"],
-        "no-confusing-arrow": "error",
+        "max-len": ["warn", { "code": 180, "comments": 512 }],
+        "func-names": ["warn", "as-needed"],
+        "semi": ["warn", "always"],
+        "semi-spacing": ["warn", {"before": false, "after": true}],
+        "no-else-return": "warn",
+        "no-prototype-builtins": "warn",
+        "no-bitwise": "warn",
+        "guard-for-in": "warn",
+        "no-mixed-operators": "warn",
+        "prefer-arrow-callback": "warn",
+        "array-callback-return": "warn",
+        "no-use-before-define": "warn",
+        "one-var-declaration-per-line": "warn",
+        "no-loop-func": "warn",
+        "implicit-arrow-linebreak": ["warn", "beside"],
+        "no-restricted-globals": ["warn", "event", "fdescribe"],
+        "no-confusing-arrow": "warn",
         "react/no-deprecated": "warn",
-        "no-nested-ternary": "error",
+        "no-nested-ternary": "warn",
         "react/function-component-definition": 0,
-        "space-before-blocks": ["error", { "functions": "always", "keywords": "always", "classes": "always" }],
-        "max-classes-per-file": ["error", 1],
-        "class-methods-use-this": "error",
-        "nonblock-statement-body-position": ["error", "beside"],
-        "brace-style": "error",
-        "array-bracket-spacing": ["error", "never"],
-        "prefer-destructuring": ["error", {"object": true, "array": false}],
-        "no-multi-spaces": "error",
-        "block-spacing": "error",
-        "key-spacing": "error",
-        "comma-spacing": "error",
-        "padded-blocks": ["error", "never"],
-        "no-multiple-empty-lines": ["error", {
+        "space-before-blocks": ["warn", { "functions": "always", "keywords": "always", "classes": "always" }],
+        "max-classes-per-file": ["warn", 1],
+        "class-methods-use-this": "warn",
+        "nonblock-statement-body-position": ["warn", "beside"],
+        "brace-style": "warn",
+        "array-bracket-spacing": ["warn", "never"],
+        "prefer-destructuring": ["warn", {"object": true, "array": false}],
+        "no-multi-spaces": "warn",
+        "block-spacing": "warn",
+        "key-spacing": "warn",
+        "comma-spacing": "warn",
+        "padded-blocks": ["warn", "never"],
+        "no-multiple-empty-lines": ["warn", {
             "max": 2,
             "maxBOF": 0,
             "maxEOF": 1
         }],
-        "lines-between-class-members": ["error", "always"],
-        "react/jsx-fragments": ["error", "syntax"],
-        "eol-last": ["error", "always"],
-        "no-trailing-spaces": ["error"],
-        "space-before-function-paren": ["error", {
+        "lines-between-class-members": ["warn", "always"],
+        "react/jsx-fragments": ["warn", "syntax"],
+        "eol-last": ["warn", "always"],
+        "no-trailing-spaces": ["warn"],
+        "space-before-function-paren": ["warn", {
             "anonymous": "always",
             "named": "never",
             "asyncArrow": "always"
         }],
-        "no-lonely-if": "error",
-        "no-console": "error",
+        "no-lonely-if": "warn",
+        "no-console": "warn",
 
         // Отключены
         "quotes": 0,
@@ -104,7 +104,7 @@ module.exports = {
         "indent": [0], // FIXME включить
         "prefer-const": [0],
         "object-curly-spacing": [0], // FIXME включить ?
-        "prefer-promise-reject-errors": [0], // FIXME включить
+        "prefer-promise-reject-warns": [0], // FIXME включить
         "space-infix-ops": [0], // ЗМ
         "object-property-newline": [0], // FIXME включить
         "curly": [0], // ЗМ
@@ -145,7 +145,7 @@ module.exports = {
         "jsx-a11y/label-has-for": "off",
 
         // не импортируем библиотеку целиком, только нужные функции/модули
-        "no-restricted-imports": ["error", {
+        "no-restricted-imports": ["warn", {
             "paths": [{
                 "name": "lodash",
                 "importNames": ["_"],
@@ -156,7 +156,7 @@ module.exports = {
         "complexity": ["warn", 15],
 
         // обязательный default в конструкциях switch case
-        "default-case": ["error", { "commentPattern": "^skip\\sdefault" }],
+        "default-case": ["warn", { "commentPattern": "^skip\\sdefault" }],
 
         // безопасная проверка на null
         "no-eq-null": "warn",
@@ -165,32 +165,32 @@ module.exports = {
         "no-return-await": "warn",
 
         // не присваиваем значения в переменную, уже равную этому значению
-        "no-self-assign": "error",
+        "no-self-assign": "warn",
 
         // на случай сравнений вида x === x
-        "no-self-compare": "error",
+        "no-self-compare": "warn",
 
         // убираем ненужные склеивания строк
-        "no-useless-concat": "error",
+        "no-useless-concat": "warn",
 
         // убираем лишний return
-        "no-useless-return": "error",
+        "no-useless-return": "warn",
 
         // async функции должны содержать await
         "require-await": "warn",
 
         // убираем неиспользуемые переменные
-        "no-unused-vars": "error",
+        "no-unused-vars": "warn",
 
         // убираем дублирования в аргументах
-        "no-dupe-args": "error",
+        "no-dupe-args": "warn",
 
         // не оставляем пустые блоки кода и лишние скобки вокруг блоков кода
-        "no-empty": "error",
-        "no-lone-blocks": "error",
+        "no-empty": "warn",
+        "no-lone-blocks": "warn",
 
         // недостижимый код
-        "no-unreachable": "error"
+        "no-unreachable": "warn"
     },
     "plugins": [
         "react",

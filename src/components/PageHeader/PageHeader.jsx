@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import FIREFLOWER_ICON from '../../assets/images/fireflower-icon.png';
+import {Cart} from "../../common/Cart";
 
 
 export const PageHeader = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    axios.get('http://localhost:7142/product').then(resp => {
+      console.log(resp);
+    });
+  });
   return (
     <header className='page-header'>
       <div
@@ -24,6 +31,7 @@ export const PageHeader = () => {
         <span style={{marginRight: 5, textTransform: 'uppercase', fontSize: 20}}>Ваши эмоции разгораются с</span>
         <span className='naming-container__name'>FIREFLOWER</span>
       </div>
+      <Cart />
     </header>
   );
 };
