@@ -1,0 +1,19 @@
+.mailing-modal-footer {
+  display: flex;
+  justify-content: space-between;
+}
+.mailing-modal-header__naming-container {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.mailing-modal-body {
+  display: flex;
+  justify-content: center;
+  font-family: 'Noto Sans Medium', sans-serif;
+  font-size: 15px;
+  color: var(--color-black);
+  margin-bottom: 20px;
+}

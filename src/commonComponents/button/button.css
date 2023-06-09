@@ -36,6 +36,11 @@ button.c-button:focus, button.c-button:active, button.c-button:hover {
   border-color: var(--color-error);
   color: var(--color-white);
 }
+.c-button--theme-black {
+  background-color: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-white);
+}
 .c-button--size-s {
   min-width: 125px;
   padding-right: 1.2em;

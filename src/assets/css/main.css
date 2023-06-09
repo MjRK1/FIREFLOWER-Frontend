@@ -3,7 +3,10 @@
 #app {
     min-height: 115vh;
 }
-
+html::-webkit-scrollbar {
+  width: 10px;
+  color: var(--color-grey4);
+}
 body {
     background-color: var(--color-white);
     color: var(--color-black);

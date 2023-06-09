@@ -1,14 +1,18 @@
 /* eslint-disable */
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { store } from '../ReduxState';
-
 const FIREFLOWER = 'localhost:5000/';
 
 
-export class Wfm {
+export class Fireflower {
   static setUserInfo = (userInfo) => {
     store.dispatch({type: 'SET_USER_INFO', userInfo});
   };
+
+  static setProductsCart = (productsCart) => {
+    store.dispatch({type: 'SET_PRODUCTS_CART', productsCart })
+  }
 
   static getMe() {
     // return axios.get(`${FIREFLOWER}user_me/`, {params})

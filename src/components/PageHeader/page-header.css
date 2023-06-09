@@ -1,6 +1,6 @@
 .page-header {
   display: flex;
-  padding: 0 40px 0 40px;
+  padding-right: 40px;
   height: 40px;
   justify-content: space-between;
   align-items: center;
@@ -9,6 +9,7 @@
 
 .page-header__naming-container {
   cursor: pointer;
+  margin-left: 20px;
   display: flex;
   align-items: center;
 }
@@ -27,4 +28,5 @@
 }
 .page-header__slogan {
   user-select: none;
+  margin: 0 auto;
 }
