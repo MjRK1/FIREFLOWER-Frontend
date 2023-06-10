@@ -10,6 +10,7 @@ import {Fireflower} from "../../Services/Fireflower/Fireflower";
 
 export const Cart = () => {
   let cartProducts = useSelector(state => state.productsCart);
+  console.log(cartProducts);
   const [isOpen, setOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ export const Cart = () => {
     if (cartProducts?.length) cartProducts?.forEach(item => { count += item.count; });
     return count;
   };
-  if (cartProducts?.length) console.log(cartProducts[0]?.count);
   const handleChangeCount = (type, id, count) => {
     let newCartProducts;
     if (type === 'minus') {
@@ -50,7 +50,7 @@ export const Cart = () => {
 
   const getCartSummary = () => {
     let sum = 0;
-    if (cartProducts?.length) cartProducts?.forEach(item => { sum += item.price; });
+    if (cartProducts?.length) cartProducts?.forEach(item => { sum += item.price * item?.count; });
     return sum;
   };
 
@@ -130,7 +130,7 @@ export const Cart = () => {
                     </motion.div>
                   </div>
                   <div className="payment-info__cost">
-                    {item?.price} ₽
+                    {item.price * item.count} ₽
                   </div>
                 </div>
               </div>

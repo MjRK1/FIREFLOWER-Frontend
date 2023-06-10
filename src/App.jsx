@@ -17,6 +17,7 @@ function App() {
       photo: null,
     };
     Fireflower.setUserInfo(userInfo);
+    Fireflower.setProductsCart([]);
   });
   return (
     <Provider store={store}>

@@ -5,7 +5,8 @@ import { nanoid } from 'nanoid';
 import FLOWER from '../../../assets/images/flower.png';
 import { ProductCard} from "./ProductCard";
 import { Button } from "../../../commonComponents/button";
-import {Fireflower} from "../../../Services/Fireflower/Fireflower";
+import { Fireflower } from "../../../Services/Fireflower/Fireflower";
+import {ProductModal} from "./ProductCard/ProductModal";
 
 const PRODUCTS = Array.from({length: 6}, (_, i) => ({
   id: i+1,
@@ -38,38 +39,29 @@ const PRODUCTS = Array.from({length: 6}, (_, i) => ({
 
 export const MainPageProducts = () => {
   const [productsList, setProductsList] = useState(PRODUCTS);
+  const [isProductOpen, setProductOpen] = useState({product: null, isOpen: false});
+  const productsCart = useSelector(state => state?.productsCart);
 
-  let productsCart = useSelector(state => state?.productsCart);
-
+  const handleOpenProduct = (product) => {
+    setProductOpen({product: product, isOpen: false});
+  };
 
   const handleAddToCart = (product) => {
     let newProductsCart = productsCart ?? [];
-    let existingProduct = false;
-    if (newProductsCart) existingProduct = productsCart?.find(item => item?.id === product?.id);
-
-    if (existingProduct) {
-      newProductsCart = productsCart.map(item => {
-        if (item?.id === product?.id) return (
-          {...item, count: item.count + 1}
-        );
+    let isProductInCart = false;
+    newProductsCart?.forEach((item) => {
+      if (item?.id === product?.id) isProductInCart = true;
+    });
+    if (isProductInCart) {
+      newProductsCart = newProductsCart.map((item) => {
+        if (item?.id === product?.id) {
+          return { ...item, count: item.count + 1 };
+        }
         return item;
       });
     } else {
-      newProductsCart?.push({...product, count: 1});
+      newProductsCart.push({ ...product, count: 1 });
     }
-    console.log(newProductsCart);
-    // if (newProductsCart?.length) {
-    //   newProductsCart = newProductsCart.map(item => {
-    //     if (item?.id === product?.id) return {
-    //       ...item,
-    //       count: item.count + 1
-    //     };
-    //     return item;
-    //   });
-    // } else {
-    //   newProductsCart = [];
-    //   newProductsCart.push({...product, count: 1});
-    // }
     Fireflower.setProductsCart([...newProductsCart]);
   };
 
@@ -78,11 +70,19 @@ export const MainPageProducts = () => {
     <div className="main-page-products">
       <div className="main-page-products__products-list">
         {productsList?.map(item => (
-          <ProductCard key={item?.id} product={item} onAddToCart={handleAddToCart} />
+          <ProductCard
+            key={item?.id}
+            product={item}
+            onAddToCart={handleAddToCart}
+            setProductOpen={setProductOpen}
+          />
         ))}
-        <Button theme='black' style={{width: 600, marginRight: 30}}>
-          Показать еще
-        </Button>
+        <ProductModal
+          isProductOpen={isProductOpen?.isOpen}
+          setProductOpen={setProductOpen}
+          product={isProductOpen?.product}
+          onAddToCart={handleAddToCart}
+        />
       </div>
     </div>
   );

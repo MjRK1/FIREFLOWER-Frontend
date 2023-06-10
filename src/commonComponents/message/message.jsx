@@ -1,8 +1,8 @@
 import { toast } from 'wc-toast';
 
 const TOAST_CONFIG_ICON = {
-  success: '✔',
-  warning: '⚠',
+  success: "✅",
+  warning: '⚠️',
   error: '🚫'
 };
 

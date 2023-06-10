@@ -15,6 +15,7 @@ export const ProfileDrawer = () => {
   // const navigate = useNavigate();
   const handleMailingOk = () => {
     //axios
+    message.success('Вы подписались на рассылку');
     setMailingOpen(false);
   };
   const handleMailingOpen = () => {
@@ -68,7 +69,7 @@ export const ProfileDrawer = () => {
                 <MessageOutlined className='mailing-action--mailing' />
               </div>
               <div className="mailing-action__title">
-                Сообщить о поступлении
+                Сообщать о поступлениях
               </div>
             </div>
             <MailingModal

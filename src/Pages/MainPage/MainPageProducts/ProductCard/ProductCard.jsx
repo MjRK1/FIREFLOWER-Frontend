@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import {motion} from 'framer-motion';
 import { StarFilled } from '@ant-design/icons';
 import FIREFLOWER from '../../../../assets/images/flower.png';
 import { Button } from "../../../../commonComponents/button";
+import {ProductModal} from "./ProductModal";
 
 
-export const ProductCard = ({product, onAddToCart}) => {
+export const ProductCard = ({product, onAddToCart, setProductOpen}) => {
   return (
     <motion.div
       className="product-card"
       key={product?.id}
       whileTap={{scale: 0.98, transition: {duration: 0.2}}}
+      onClick={() => setProductOpen({product: product, isOpen: true})}
     >
+      {/*<ProductModal*/}
+      {/*  isProductOpen={isProductOpen}*/}
+      {/*  setProductOpen={setProductOpen}*/}
+      {/*  product={product}*/}
+      {/*  onAddToCart={onAddToCart}*/}
+      {/*/>*/}
       <div className="product-card__image">
         <img src={FIREFLOWER} alt='цветок' />
       </div>
