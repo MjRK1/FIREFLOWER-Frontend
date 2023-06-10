@@ -7,6 +7,7 @@ import { ProductCard} from "./ProductCard";
 import { Button } from "../../../commonComponents/button";
 import { Fireflower } from "../../../Services/Fireflower/Fireflower";
 import {ProductModal} from "./ProductCard/ProductModal";
+import {message} from "../../../commonComponents/message/message";
 
 const PRODUCTS = Array.from({length: 6}, (_, i) => ({
   id: i+1,
@@ -38,9 +39,23 @@ const PRODUCTS = Array.from({length: 6}, (_, i) => ({
 
 
 export const MainPageProducts = () => {
-  const [productsList, setProductsList] = useState(PRODUCTS);
+  const [productsList, setProductsList] = useState([]);
   const [isProductOpen, setProductOpen] = useState({product: null, isOpen: false});
+  const [loading, setLoading] = useState(false);
   const productsCart = useSelector(state => state?.productsCart);
+
+  useEffect(() => {
+    setLoading(true);
+    Fireflower.getProducts()
+      .then((resp) => {
+        setProductsList(resp?.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        message.error(err);
+        setLoading(false);
+      });
+  }, []);
 
   const handleOpenProduct = (product) => {
     setProductOpen({product: product, isOpen: false});

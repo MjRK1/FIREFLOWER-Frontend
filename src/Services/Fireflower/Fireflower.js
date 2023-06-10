@@ -31,7 +31,7 @@ export class Fireflower {
     });
   }
 
-  static getProducts(page) {
+  static getProducts() {
     return axios.get(`${FIREFLOWER}GetAllProduct`)
   }
 
