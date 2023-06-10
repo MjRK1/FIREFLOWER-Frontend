@@ -5,7 +5,9 @@ import { store } from "./Services/ReduxState";
 import "./assets/css/main.css";
 import { RouteLayout } from "./common/RouteLayout";
 import { MainPage } from "./Pages/MainPage";
+import { ProfilePage } from "./Pages/ProfilePage";
 import { Fireflower } from "./Services/Fireflower/Fireflower";
+import {OrderPage} from "./Pages/OrderPage";
 
 function App() {
   useEffect(() => {
@@ -13,6 +15,7 @@ function App() {
       id: 123,
       name: 'Oleg',
       phone: '+79625460805',
+      email: 'sidorenko@stanki.ru',
       adress: 'Москва, ул.Вадковский пер, д. 8',
       photo: null,
     };
@@ -24,7 +27,8 @@ function App() {
       <Routes>
         <Route path='/' element={<RouteLayout />}>
           <Route path='/fireflower' element={<MainPage />} />
-          <Route path='/order' element={<div />} />
+          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/order' element={<OrderPage />} />
           <Route path='/' element={<Navigate to='/fireflower' replace />} />
         </Route>
       </Routes>

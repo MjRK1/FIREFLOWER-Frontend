@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Drawer } from "../../commonComponents/drawer";
+import { InputText } from "../../commonComponents/input/inputText";
+import { DatePicker } from "../../commonComponents/datepicker";
 import { Button } from "../../commonComponents/button";
 import {Fireflower} from "../../Services/Fireflower/Fireflower";
 
-
-export const Cart = () => {
-  let cartProducts = useSelector(state => state.productsCart);
-  const [isOpen, setOpen] = useState(false);
+export const OrderPage = () => {
+  const [date, setDate] = useState('');
+  const [adress, setAdress] = useState('');
+  const cartProducts = useSelector(state => state?.productsCart);
   useEffect(() => {
-    if (!cartProducts) Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
-  }, []);
-  const navigate = useNavigate();
+    if (!cartProducts?.length || !cartProducts) Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
+  }, [cartProducts]);
 
   const getCartProductsCount = () => {
     let count = 0;
     if (cartProducts?.length) cartProducts?.forEach(item => { count += item.count; });
     return count;
   };
+
+
+
   const handleChangeCount = (type, id, count) => {
     let newCartProducts;
     if (type === 'minus') {
@@ -38,7 +39,6 @@ export const Cart = () => {
       }
       newCartProducts = newCartProducts.filter(item => item !== undefined);
       Fireflower.setProductsCart([...newCartProducts]);
-      localStorage.setItem("cart", JSON.stringify(newCartProducts));
     } else {
       newCartProducts = cartProducts.map(item => {
         if (item?.id === id) {
@@ -47,7 +47,6 @@ export const Cart = () => {
         return item;
       });
       Fireflower.setProductsCart([...newCartProducts]);
-      localStorage.setItem("cart", JSON.stringify(newCartProducts));
     }
   };
 
@@ -57,55 +56,51 @@ export const Cart = () => {
     return sum;
   };
 
-  const handleClick = () => {
-    setOpen(false);
-    navigate('/order');
+  const handlePayment = () => {
+    Fireflower.payment({
+      id: 1,
+      adress: adress,
+      sum_cost: getCartSummary(),
+      payment_info: 0,
+      deliveryTime: date,
+    });
   };
 
-  const renderCartInfo = () => {
-    if (!cartProducts?.length) return (
-      <div className="cart-drawer-container__title">
-        Корзина пуста
+  return (
+    <div className="order-page">
+      <div className="order-page__order-details">
+        <div className="order-details__title">
+          Детали доставки
+        </div>
+        <div className="order-details__order-adress">
+          <div className="order-adress__title">
+            Адрес доставки
+          </div>
+          <InputText style={{width: 300}} value={adress} onChange={(e) => setAdress(e.target.value)} />
+        </div>
+        <div className="order-details__order-time">
+          <div className="order-time__title">Дата доставки</div>
+          <DatePicker onChange={(date) => setDate(date)} />
+        </div>
+        <div className="order-details__order-additional">
+          <div className="order-additional__title">
+            Отмена заказов
+          </div>
+          <div className="order-additional__text">
+            На вашей карте будут заморожены
+            и спишутся только после доставки.
+            Вы можете отменить заказ в любое время,
+            пока курьер не назначен на доставку,
+            ― вам вернутся 100% стоимости.
+          </div>
+        </div>
+        <Button theme='black' style={{width: 400}} onClick={() => handlePayment()}>Завершить заказ</Button>
       </div>
-    );
-    return (
-      <div className="cart-drawer-container">
-        <div className="cart-drawer-container__title">
-          Ваш заказ
+      <div className="order-page__order-cart">
+        <div className="order-cart__title">
+          Товары к оплате
         </div>
-        <div className="cart-drawer-container__delivery-date">
-          <span className="delivery-date__field">Время доставки: </span>
-          <span className="delivery-date__value">завтра 11:55 - 12:25</span>
-        </div>
-        <Button
-          theme='black'
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'no-wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: 20
-          }}
-          onClick={() => handleClick()}
-        >
-          <div className="make-order-button__title">
-            Оформление заказа
-          </div>
-          <div className="make-order-button__cost">
-            {getCartSummary()} ₽
-          </div>
-        </Button>
-        <div className="cart-drawer-container__delivery-cost">
-          <div className="delivery-cost__title">
-            Стоимость доставки
-          </div>
-          <div className="delivery-cost__value">
-            959 ₽
-          </div>
-        </div>
-        <div className="cart-drawer-container__products-list">
+        <div className="order-cart__cart-products-list">
           {cartProducts?.map(item => (
             <div key={item?.id} className="products-list__products-item">
               <img src={item?.image} alt='Розы' className='products-item__product-image' />
@@ -141,29 +136,10 @@ export const Cart = () => {
             )
           )}
         </div>
+        <div className="order-cart__summary">
+          Итого к оплате: {getCartSummary()} ₽
+        </div>
       </div>
-    );
-  };
-
-
-  return (
-    <div className="cart-wrapper">
-      <div
-        className="cart-wrapper__cart-button"
-        onClick={() => setOpen(true)}
-      >
-        <span className="cart-button__icon">
-          <ShoppingCartOutlined className='icon-cart' />
-        </span>
-        <span className='cart-button__products-count'>{getCartProductsCount()}</span>
-      </div>
-      <Drawer
-        open={isOpen}
-        onClose={() => setOpen(false)}
-        width={380}
-      >
-        {renderCartInfo()}
-      </Drawer>
     </div>
   );
 };

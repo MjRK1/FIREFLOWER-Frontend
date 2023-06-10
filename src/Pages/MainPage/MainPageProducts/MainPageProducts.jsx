@@ -46,7 +46,8 @@ export const MainPageProducts = () => {
     setProductOpen({product: product, isOpen: false});
   };
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, e) => {
+    e.stopPropagation();
     let newProductsCart = productsCart ?? [];
     let isProductInCart = false;
     newProductsCart?.forEach((item) => {
@@ -63,6 +64,7 @@ export const MainPageProducts = () => {
       newProductsCart.push({ ...product, count: 1 });
     }
     Fireflower.setProductsCart([...newProductsCart]);
+    localStorage.setItem("cart", JSON.stringify(newProductsCart));
   };
 
 

@@ -113,7 +113,7 @@ export const ProductModal = (props) => {
             theme='black'
             width={200}
             style={{position: 'absolute', bottom: 10}}
-            onClick={() => onAddToCart(product)}
+            onClick={() => handleAddToCart()}
           >
             В корзину
           </Button>

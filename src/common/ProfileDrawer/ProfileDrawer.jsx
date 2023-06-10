@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserOutlined, MenuOutlined, MessageOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { Drawer } from "../../commonComponents/drawer";
@@ -12,7 +13,7 @@ export const ProfileDrawer = () => {
   const [isAuthOpen, setAuthOpen] = useState(false);
 
   const userInfo = useSelector(state => state?.userInfo);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleMailingOk = () => {
     //axios
     message.success('Вы подписались на рассылку');
@@ -23,6 +24,14 @@ export const ProfileDrawer = () => {
     else setMailingOpen(true);
   };
 
+  const handleOpenAuth = () => {
+    if (userInfo) {
+      navigate('/profile');
+      setOpen(false);
+    } else {
+      setAuthOpen(true);
+    }
+  };
   return (
     <div className="profile-drawer-wrapper">
       <div
@@ -48,7 +57,7 @@ export const ProfileDrawer = () => {
           <div className="profile-drawer-container__account-actions">
             <div
               className="account-actions__profile-action"
-              onClick={() => setAuthOpen(true)}
+              onClick={() => handleOpenAuth()}
             >
               <div className="profile-action__icon">
                 <UserOutlined className='profile-icon--user' />

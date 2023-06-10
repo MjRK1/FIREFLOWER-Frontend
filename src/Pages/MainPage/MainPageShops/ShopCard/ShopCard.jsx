@@ -18,8 +18,8 @@ export const ShopCard = ({shop}) => {
       <div className="shop-card__additional-info">
         <div className="shop-additional-info__rate">
           <StarFilled style={{color: 'var(--color-orange1)', fontSize: 20, marginRight: 5}} />
-          <div className="rate__value">{7}</div>
-          <div className="rate__count">{100} отзывов</div>
+          <div className="rate__value">{Math.floor(Math.random() * 10) + 1}</div>
+          <div className="rate__count">{Math.floor(Math.random() * 1000) + 1} отзывов</div>
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export class Fireflower {
   }
 
   static getProducts(page) {
-    //return axios.get(`${FIREFLOWER}get_products/?count=5&page=${page}`)
+    return axios.get(`${FIREFLOWER}GetAllProduct`)
   }
 
   static auth(email, password) {
@@ -51,12 +51,9 @@ export class Fireflower {
     })
   }
 
-  static userMe() {
-    return axios.get(`${FIREFLOWER}user_me`, {withCredentials: true})
-  }
 
-  static userCart(params) {
-    return axios.post(`${FIREFLOWER}user_cart/`, {
+  static payment(params) {
+    return axios.post(`${FIREFLOWER}/api/payment`, {
       ...params
     })
   }

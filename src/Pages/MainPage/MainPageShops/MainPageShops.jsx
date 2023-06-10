@@ -23,7 +23,7 @@ export const MainPageShops = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`${FIREFLOWER_URL}get_shops/`)
+    axios.get(`${FIREFLOWER_URL}GetAllShop`)
       .then((resp) => {
         setShopsList(resp?.data);
         setLoading(false);

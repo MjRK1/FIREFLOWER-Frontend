@@ -1,0 +1,40 @@
+.shop-card {
+  width: 450px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px var(--color-grey2), -4px 0 4px var(--color-grey2);
+}
+.shop-card__image img {
+  width: 450px;
+  height: 180px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.shop-card__title {
+  font-family: 'Noto Sans Medium', sans-serif;
+  padding-left: 5px;
+  color: var(--color-black);
+  font-size: 15px;
+  line-height: 15px;
+  margin-bottom: 10px;
+}
+.shop-card__additional-info {
+  padding-left: 5px;
+  padding-bottom: 10px;
+}
+.shop-additional-info__rate {
+  display: flex;
+  flex-direction: row;
+}
+.rate__value {
+  font-size: 14px;
+  font-family: "Noto Sans Medium", sans-serif;
+  margin-right: 3px;
+}
+.rate__count {
+  font-size: 10px;
+  color: var(--color-grey3);
+  position: relative;
+}

@@ -28,7 +28,7 @@ export const ProductCard = ({product, onAddToCart, setProductOpen}) => {
           <Button
             theme='secondary'
             style={{minWidth: 70, width: 'auto', height: 30}}
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => onAddToCart(product, e)}
           >
             {product?.price}  ₽
           </Button>

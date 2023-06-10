@@ -1,0 +1,81 @@
+.profile-page {
+  width: 100%;
+  height: calc(100vh - 1px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-grey2);
+}
+.profile-wrapper__title {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  user-select: none;
+  font-family: 'Noto Sans Regular', sans-serif;
+}
+.profile-wrapper__user-container {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.profile-page__profile-wrapper {
+  display: flex;
+  padding-top: 25px;
+  flex-direction: column;
+  align-content: center;
+  margin-top: 30px;
+  width: 1000px;
+  height: 500px;
+  background-color: var(--color-white);
+  border-radius: 25px;
+}
+.profile-wrapper__user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.user-info__user-email {
+  margin-bottom: 15px;
+}
+.user-email__title {
+  font-family: 'Noto Sans Medium', sans-serif;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.user-info__user-phone {
+  margin-bottom: 15px;
+}
+.user-phone__title {
+  font-family: 'Noto Sans Medium', sans-serif;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.user-container__qr-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 330px;
+  border: 1px solid var(--color-grey4);
+  border-radius: 20px;
+}
+.qr-image__description {
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-family: 'Noto Sans Bold', sans-serif;
+  font-size: 20px;
+}
+.user-container__qr-image img {
+  width: 200px;
+  height: 200px;
+}
+.order-cart__summary {
+  font-family: 'Noto Sans Medium', sans-serif;
+  font-size: 20px;
+  margin-top: 50px;
+}
