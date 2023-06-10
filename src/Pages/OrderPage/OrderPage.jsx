@@ -5,6 +5,7 @@ import { InputText } from "../../commonComponents/input/inputText";
 import { DatePicker } from "../../commonComponents/datepicker";
 import { Button } from "../../commonComponents/button";
 import {Fireflower} from "../../Services/Fireflower/Fireflower";
+import {message} from "../../commonComponents/message/message";
 
 export const OrderPage = () => {
   const [date, setDate] = useState('');
@@ -63,7 +64,10 @@ export const OrderPage = () => {
       sum_cost: getCartSummary(),
       payment_info: 0,
       deliveryTime: date,
-    });
+    }).then((resp) => {
+      message.success(resp.details);
+    })
+      .catch((err) => message.error('Сервак опять сдох!'));
   };
 
   return (

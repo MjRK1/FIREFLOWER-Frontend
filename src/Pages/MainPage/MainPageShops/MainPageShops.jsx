@@ -30,6 +30,7 @@ export const MainPageShops = () => {
     })
     .catch((err) => {
       message.error(err);
+      setShopsList(SHOPS);
       setLoading(false);
     });
   }, []);

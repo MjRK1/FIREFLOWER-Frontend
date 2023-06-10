@@ -53,6 +53,7 @@ export const MainPageProducts = () => {
       })
       .catch((err) => {
         message.error(err);
+        setProductsList(PRODUCTS)
         setLoading(false);
       });
   }, []);
