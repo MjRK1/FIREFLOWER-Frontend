@@ -20,8 +20,8 @@ export const ProductModal = (props) => {
   const [commentValue, setCommentValue] = useState('');
   const [rateValue, setRateValue] = useState(0);
 
-  const handleAddToCart = () => {
-    onAddToCart(product);
+  const handleAddToCart = (e) => {
+    onAddToCart(product, e);
     setProductOpen(false);
   };
 
@@ -113,7 +113,7 @@ export const ProductModal = (props) => {
             theme='black'
             width={200}
             style={{position: 'absolute', bottom: 10}}
-            onClick={() => handleAddToCart()}
+            onClick={(e) => handleAddToCart(e)}
           >
             В корзину
           </Button>

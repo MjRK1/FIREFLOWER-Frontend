@@ -8,7 +8,7 @@ const initialState = {
     adress: '',
     photo: null,
   },
-  productsCart: []
+  cartProducts: []
 };
 
 const SET_USER_INFO = 'SET_USER_INFO';
@@ -20,7 +20,7 @@ export const rootReducer = (state = initialState, action) => {
     case SET_USER_INFO:
       return {...state, userInfo: action.userInfo};
     case SET_PRODUCTS_CART:
-      return {...state, productsCart: action.productsCart};
+      return {...state, cartProducts: action.cartProducts};
     default:
       return state;
   }

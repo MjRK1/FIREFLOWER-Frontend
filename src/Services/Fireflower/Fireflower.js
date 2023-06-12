@@ -10,8 +10,9 @@ export class Fireflower {
     store.dispatch({type: 'SET_USER_INFO', userInfo});
   };
 
-  static setProductsCart = (productsCart) => {
-    store.dispatch({type: 'SET_PRODUCTS_CART', productsCart })
+  static setProductsCart = (cartProducts) => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+    store.dispatch({type: 'SET_PRODUCTS_CART', cartProducts })
   }
 
   static getMe() {

@@ -9,11 +9,15 @@ import {Fireflower} from "../../Services/Fireflower/Fireflower";
 
 
 export const Cart = () => {
-  let cartProducts = useSelector(state => state.productsCart);
+  let cartProducts = useSelector(state => state.cartProducts);
   const [isOpen, setOpen] = useState(false);
+
   useEffect(() => {
-    if (!cartProducts) Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
+    if (!cartProducts || !cartProducts?.length) {
+      Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
+    }
   }, []);
+
   const navigate = useNavigate();
 
   const getCartProductsCount = () => {

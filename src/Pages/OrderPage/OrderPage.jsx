@@ -1,27 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { InputText } from "../../commonComponents/input/inputText";
 import { DatePicker } from "../../commonComponents/datepicker";
 import { Button } from "../../commonComponents/button";
-import {Fireflower} from "../../Services/Fireflower/Fireflower";
-import {message} from "../../commonComponents/message/message";
+import { Fireflower } from "../../Services/Fireflower/Fireflower";
+import { message } from "../../commonComponents/message/message";
 
 export const OrderPage = () => {
   const [date, setDate] = useState('');
   const [adress, setAdress] = useState('');
-  const cartProducts = useSelector(state => state?.productsCart);
+  const cartProducts = useSelector(state => state?.cartProducts);
+
+
+  // TODO: Продумать редирект на главную страницу при удалении всех товаров или вывести сообщение в "товары к оплате", что товаров нет
   useEffect(() => {
-    if (!cartProducts?.length || !cartProducts) Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
-  }, [cartProducts]);
+    if (!cartProducts || !cartProducts?.length) {
+      Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
+    }
+  }, []);
 
   const getCartProductsCount = () => {
     let count = 0;
     if (cartProducts?.length) cartProducts?.forEach(item => { count += item.count; });
     return count;
   };
-
-
 
   const handleChangeCount = (type, id, count) => {
     let newCartProducts;

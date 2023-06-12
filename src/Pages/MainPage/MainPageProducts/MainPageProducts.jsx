@@ -42,7 +42,7 @@ export const MainPageProducts = () => {
   const [productsList, setProductsList] = useState([]);
   const [isProductOpen, setProductOpen] = useState({product: null, isOpen: false});
   const [loading, setLoading] = useState(false);
-  const productsCart = useSelector(state => state?.productsCart);
+  const productsCart = useSelector(state => state?.cartProducts);
 
   useEffect(() => {
     setLoading(true);
@@ -80,7 +80,7 @@ export const MainPageProducts = () => {
       newProductsCart.push({ ...product, count: 1 });
     }
     Fireflower.setProductsCart([...newProductsCart]);
-    localStorage.setItem("cart", JSON.stringify(newProductsCart));
+    localStorage.setItem("cart", JSON.stringify([...newProductsCart]));
   };
 
 
