@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useNavigate } from 'react-router-dom';
 import { InputText } from "../../commonComponents/input/inputText";
 import { DatePicker } from "../../commonComponents/datepicker";
 import { Button } from "../../commonComponents/button";
 import { Fireflower } from "../../Services/Fireflower/Fireflower";
 import { message } from "../../commonComponents/message/message";
 
+
 export const OrderPage = () => {
   const [date, setDate] = useState('');
   const [adress, setAdress] = useState('');
   const cartProducts = useSelector(state => state?.cartProducts);
+  const navigate = useNavigate();
 
 
-  // TODO: Продумать редирект на главную страницу при удалении всех товаров или вывести сообщение в "товары к оплате", что товаров нет
   useEffect(() => {
     if (!cartProducts || !cartProducts?.length) {
       Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
@@ -83,7 +86,12 @@ export const OrderPage = () => {
           <div className="order-adress__title">
             Адрес доставки
           </div>
-          <InputText style={{width: 300}} value={adress} onChange={(e) => setAdress(e.target.value)} />
+          <InputText
+            style={{width: 300, marginBottom: 15}}
+            value={adress}
+            placeholder='Введите адрес доставки'
+            onChange={(e) => setAdress(e.target.value)}
+          />
         </div>
         <div className="order-details__order-time">
           <div className="order-time__title">Дата доставки</div>
@@ -108,6 +116,20 @@ export const OrderPage = () => {
           Товары к оплате
         </div>
         <div className="order-cart__cart-products-list">
+          {!cartProducts?.length && (
+            <div className='cart-products-list__empty-cart-wrapper'>
+              <div className="empty-cart-wrapper__empty-cart-title">
+                Корзина пуста :(
+              </div>
+              <motion.div
+                className='empty-cart-wrapper__to-main-page-button'
+                whileTap={{scale: 1.05, transition: {duration: 0.2}}}
+                onClick={() => navigate('/')}
+              >
+                Вперед за покупками!
+              </motion.div>
+            </div>
+          )}
           {cartProducts?.map(item => (
             <div key={item?.id} className="products-list__products-item">
               <img src={item?.image} alt='Розы' className='products-item__product-image' />
@@ -143,9 +165,11 @@ export const OrderPage = () => {
             )
           )}
         </div>
-        <div className="order-cart__summary">
-          Итого к оплате: {getCartSummary()} ₽
-        </div>
+        {!!cartProducts?.length && (
+          <div className="order-cart__summary">
+            Итого к оплате: {getCartSummary()} ₽
+          </div>
+        )}
       </div>
     </div>
   );

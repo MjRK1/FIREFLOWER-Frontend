@@ -25,6 +25,12 @@ export const ProductModal = (props) => {
     setProductOpen(false);
   };
 
+  const handleCancel = () => {
+    setRateValue(0);
+    setCommentValue('');
+    setProductOpen(false);
+  };
+
   const handleSuccess = () => {
     message.loading('Загрузка...');
     axios.post(`${FIREFLOWER_URL}rate_product`, {
@@ -38,8 +44,10 @@ export const ProductModal = (props) => {
       })
       .catch((error) => {
         message.error(error);
-        setProductOpen(false);
       });
+    setRateValue(0);
+    setCommentValue('');
+    setProductOpen(false);
   };
 
 
@@ -48,7 +56,7 @@ export const ProductModal = (props) => {
       open={isProductOpen}
       width={800}
       onOk={handleSuccess}
-      onCancel={() => setProductOpen(true)}
+      onCancel={handleCancel}
     >
       <div className="product-modal">
         <div className="product-modal__product-info">
@@ -96,7 +104,7 @@ export const ProductModal = (props) => {
               <Rate
                 defaultValue={0}
                 character={<StarFilled />}
-                style={{color: '#FF7A2F', marginBottom: 10}}
+                style={{color: '#FF7A2F', marginBottom: 15}}
                 value={rateValue}
                 onChange={(value) => setRateValue(value)}
               />
@@ -109,6 +117,7 @@ export const ProductModal = (props) => {
               />
             </div>
           </div>
+          <div className="feedback-wrapper__feedback-list" />
           <Button
             theme='black'
             width={200}

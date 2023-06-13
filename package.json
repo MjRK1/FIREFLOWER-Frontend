@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
+    "@pbe/react-yandex-maps": "^1.2.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -24,7 +25,8 @@
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
-    "wc-toast": "^1.2.9"
+    "wc-toast": "^1.2.9",
+    "yandex-maps": "^0.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
