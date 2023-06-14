@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Tabs } from '../../commonComponents/tabs';
-import { Modal } from "../../commonComponents/modal";
-import { Button } from "../../commonComponents/button";
-import { InputText } from "../../commonComponents/input/inputText";
-import { InputPassword } from "../../commonComponents/input/inputPassword";
-import { Fireflower } from "../../Services/Fireflower/Fireflower";
-import { message } from "../../commonComponents/message/message";
+import { Tabs } from '../../../commonComponents/tabs';
+import { Modal } from "../../../commonComponents/modal";
+import { Button } from "../../../commonComponents/button";
+import { InputText } from "../../../commonComponents/input/inputText";
+import { InputPassword } from "../../../commonComponents/input/inputPassword";
+import { Fireflower } from "../../../Services/Fireflower/Fireflower";
+import { message } from "../../../commonComponents/message/message";
 
 export const AuthorizeModal = (props) => {
   const {

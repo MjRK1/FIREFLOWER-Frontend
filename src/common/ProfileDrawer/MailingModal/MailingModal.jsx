@@ -2,18 +2,27 @@ import React from "react";
 import FIREFLOWER_ICON from "../../../assets/images/fireflower-icon.png";
 import { Modal } from "../../../commonComponents/modal";
 import { Button } from "../../../commonComponents/button";
+import { Fireflower } from "../../../Services/Fireflower/Fireflower";
+import { message } from "../../../commonComponents/message/message";
 
 export const MailingModal = (props) => {
   const {
     isMailingOpen,
     onMailingOk,
-    setMailingOpen
+    setMailingOpen,
+    userInfo,
   } = props;
+
+  const handleAcceptMailing = () => {
+    Fireflower.setMailing(1, userInfo?.email).then((resp) => {
+      message.success('Вы подписались на рассылку');
+    });
+  };
 
   const renderMailingFooter = () => {
     return (
       <div className="mailing-modal-footer">
-        <Button theme='green' onClick={() => onMailingOk()}>Да</Button>
+        <Button theme='green' onClick={() => handleAcceptMailing()}>Да</Button>
         <Button theme='red' onClick={() => setMailingOpen(false)}>Нет</Button>
       </div>
     );

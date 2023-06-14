@@ -95,9 +95,10 @@ export class Fireflower {
     })
   }
 
-  static setMailing(id) {
-    return axios.post(`${FIREFLOWER_URL}mailing/`, {
-      user_id: id
+  static setMailing(id, email) {
+    return axios.post(`${FIREFLOWER_URL}mailing`, {
+      user_id: id,
+      email: email
     })
   }
 }

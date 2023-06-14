@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Drawer } from "../../commonComponents/drawer";
 import { message } from "../../commonComponents/message/message";
 import { MailingModal } from "./MailingModal";
-import { AuthorizeModal } from "../AuthorizeModal";
+import { AuthorizeModal } from "./AuthorizeModal";
 
 export const ProfileDrawer = () => {
   const [isOpen, setOpen] = useState(false);
@@ -89,6 +89,7 @@ export const ProfileDrawer = () => {
               isMailingOpen={isMailingOpen}
               onMailingOk={handleMailingOk}
               setMailingOpen={setMailingOpen}
+              userInfo={userInfo}
             />
           </div>
         </div>
