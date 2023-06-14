@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Tabs } from '../../commonComponents/tabs';
 import { Modal } from "../../commonComponents/modal";
 import { Button } from "../../commonComponents/button";
-import {InputText} from "../../commonComponents/input/inputText";
-import {InputPassword} from "../../commonComponents/input/inputPassword";
-
+import { InputText } from "../../commonComponents/input/inputText";
+import { InputPassword } from "../../commonComponents/input/inputPassword";
+import { Fireflower } from "../../Services/Fireflower/Fireflower";
+import { message } from "../../commonComponents/message/message";
 
 export const AuthorizeModal = (props) => {
   const {
@@ -12,9 +13,43 @@ export const AuthorizeModal = (props) => {
     setAuthOpen
   } = props;
   const [selectedTab, setSelectedTab] = useState('1');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleAuthUser = (type) => {
-    //
+    if (type === 'register') {
+      Fireflower.register(email, password, '213')
+        .then(resp => {
+          message.success('Регистрация пройдена!');
+          setAuthOpen(false);
+        })
+        .catch((err) => {
+          message.error('Убейте бдшника');
+        });
+    } else {
+      Fireflower.auth(email, password)
+        .then(resp => {
+          if (resp.data.success) {
+            const userInfo = {
+              id: 123,
+              name: 'Oleg',
+              phone: '+79625460805',
+              email: email,
+              adress: 'Москва, ул.Вадковский пер, д. 8',
+              photo: null,
+            };
+            message.success(resp.data.message);
+            Fireflower.setUserInfo(userInfo);
+            setAuthOpen(false);
+          } else {
+            message.error(resp.data.message);
+          }
+        })
+        .catch((err) => {
+          message.error('Убейте бдшника');
+          setAuthOpen(false);
+        });
+    }
   };
 
   const renderAuthFooter = () => {
@@ -30,7 +65,7 @@ export const AuthorizeModal = (props) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onClick={() => {}}
+          onClick={() => handleAuthUser(selectedTab === '1' ? 'register' : 'auth')}
         >
           {selectedTab === "1" ? 'Зарегистрироваться' : 'Авторизироваться'}
         </Button>
@@ -44,19 +79,32 @@ export const AuthorizeModal = (props) => {
           <div className="email-input__title">
             Введите почту
           </div>
-          <InputText style={{width: '60%'}} placeholder='fireflower@email.com' />
+          <InputText
+            style={{width: '60%'}}
+            placeholder='fireflower@email.com'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="register-body__phone-input">
           <div className="phone-input__title">
             Введите номер телефона
           </div>
-          <InputText style={{width: '60%'}} placeholder='+79999999999' />
+          <InputText
+            style={{width: '60%'}}
+            placeholder='+79999999999'
+          />
         </div>
         <div className="register-body__password-input">
           <div className="password-input__title">
             Введите пароль
           </div>
-          <InputPassword style={{width: '60%'}} placeholder='Введите пароль' />
+          <InputPassword
+            style={{width: '60%'}}
+            placeholder='Введите пароль'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
       </div>
     );

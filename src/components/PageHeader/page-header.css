@@ -22,11 +22,16 @@
 .naming-container__name {
   color: var(--color-orange1);
   user-select: none;
+  cursor: pointer;
   font-family: 'Noto Sans Medium', sans-serif;
   font-size: 20px;
   letter-spacing: 1px;
 }
 .page-header__slogan {
+  display: flex;
   user-select: none;
   margin: 0 auto;
+}
+.naming-container__name {
+  cursor: pointer;
 }

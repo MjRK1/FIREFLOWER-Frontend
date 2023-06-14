@@ -7,6 +7,7 @@ import { FIREFLOWER_URL } from '../constants';
 export class Fireflower {
   static setUserInfo = (userInfo) => {
     store.dispatch({type: 'SET_USER_INFO', userInfo});
+    localStorage.setItem('userMe', JSON.stringify(userInfo));
   };
 
   static setProductsCart = (cartProducts) => {
@@ -35,17 +36,20 @@ export class Fireflower {
     return axios.get(`${FIREFLOWER_URL}GetAllProduct`)
   }
   static getProductRating() {
-    return axios.get(`${FIREFLOWER_URL}GetAllProductRaiting`)
+    return axios.get(`${FIREFLOWER_URL}GetAllProductRating`)
   }
   static postProductRating(params) {
-    return axios
-      .post(`${FIREFLOWER_URL}AddProductRaiting?Rate=${params?.Rate}&Comment=${params.Comment}&product_id=${params.product_id}`)
+    return axios.post(`${FIREFLOWER_URL}AddProductRating`, {
+      product_id: params?.id,
+      Rate: params?.rate,
+      Comment: params?.comment
+    })
   }
   static auth(email, password) {
-    return axios.post(`${FIREFLOWER_URL}auth/`, {
+    return axios.post(`${FIREFLOWER_URL}Login`, {
       email: email,
       password: password,
-      withCredentials: true
+      // withCredentials: true
     })
   }
 
@@ -53,28 +57,25 @@ export class Fireflower {
     return axios.post(`${FIREFLOWER_URL}register/`, {
       email: email,
       password: password,
-      phone: phone
+      // phone: phone
     })
   }
 
 
-  static payment(params) {
-    return axios.post(`${FIREFLOWER_URL}payment`, {
-      ...params
+  static postPayment(address, Sum_cost) {
+    return axios.post(`${FIREFLOWER_URL}addPayment`, {
+      address,
+      Sum_cost,
+      payment_info: 1,
+      deliveryTime: 12,
+      UserId: 1,
+      Product_id: 1
     })
   }
 
   static postCard(postcard_prompt) {
     return axios.get(`${FIREFLOWER_URL}post_card/`, {
       postcard_prompt: [...postcard_prompt]
-    })
-  }
-
-  static rateProduct(product_id, rate, comment) {
-    return axios.post(`${FIREFLOWER_URL}rate_product/`, {
-      product_id: product_id,
-      rate: rate,
-      comment: comment
     })
   }
 
@@ -86,8 +87,8 @@ export class Fireflower {
     return axios.get(`${FIREFLOWER_URL}GetRatingShop`)
   }
 
-  static rateShop(shop_id, rate, comment) {
-    return axios.post(`${FIREFLOWER_URL}rate_shop/`, {
+  static postShopRating(shop_id, rate, comment) {
+    return axios.post(`${FIREFLOWER_URL}AddRatingShop`, {
       product_id: shop_id,
       rate: rate,
       comment: comment

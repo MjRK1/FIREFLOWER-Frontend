@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useNavigate } from 'react-router-dom';
+import FLOWER_IMG from '../../assets/images/flower.png';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { InputText } from "../../commonComponents/input/inputText";
 import { DatePicker } from "../../commonComponents/datepicker";
 import { Button } from "../../commonComponents/button";
@@ -12,7 +13,7 @@ import { message } from "../../commonComponents/message/message";
 
 export const OrderPage = () => {
   const [date, setDate] = useState('');
-  const [adress, setAdress] = useState('');
+  const [address, setAddress] = useState('');
   const cartProducts = useSelector(state => state?.cartProducts);
   const navigate = useNavigate();
 
@@ -22,12 +23,6 @@ export const OrderPage = () => {
       Fireflower.setProductsCart(JSON.parse(localStorage.getItem('cart')));
     }
   }, []);
-
-  const getCartProductsCount = () => {
-    let count = 0;
-    if (cartProducts?.length) cartProducts?.forEach(item => { count += item.count; });
-    return count;
-  };
 
   const handleChangeCount = (type, id, count) => {
     let newCartProducts;
@@ -60,17 +55,15 @@ export const OrderPage = () => {
   const getCartSummary = () => {
     let sum = 0;
     if (cartProducts?.length) cartProducts?.forEach(item => { sum += item.price * item?.count; });
+    sum += 350;
     return sum;
   };
 
-  const handlePayment = () => {
-    Fireflower.payment({
-      id: 1,
-      adress: adress,
-      sum_cost: getCartSummary(),
-      payment_info: 0,
-      deliveryTime: date,
-    }).then((resp) => {
+  const handlePay = () => {
+    Fireflower.postPayment(
+      address, getCartSummary()
+    )
+    .then((resp) => {
       message.success(resp.details);
     })
       .catch((err) => message.error('Сервак опять сдох!'));
@@ -88,9 +81,9 @@ export const OrderPage = () => {
           </div>
           <InputText
             style={{width: 300, marginBottom: 15}}
-            value={adress}
+            value={address}
             placeholder='Введите адрес доставки'
-            onChange={(e) => setAdress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className="order-details__order-time">
@@ -109,7 +102,7 @@ export const OrderPage = () => {
             ― вам вернутся 100% стоимости.
           </div>
         </div>
-        <Button theme='black' style={{width: 400}} onClick={() => handlePayment()}>Завершить заказ</Button>
+        <Button theme='black' style={{width: 400}} onClick={() => handlePay()}>Завершить заказ</Button>
       </div>
       <div className="order-page__order-cart">
         <div className="order-cart__title">
@@ -132,7 +125,7 @@ export const OrderPage = () => {
           )}
           {cartProducts?.map(item => (
             <div key={item?.id} className="products-list__products-item">
-              <img src={item?.image} alt='Розы' className='products-item__product-image' />
+              <img src={FLOWER_IMG} alt='Розы' className='products-item__product-image' />
               <div className="products-item__product-info">
                 <div className="product-info__product-title">
                   {item?.name}
@@ -167,6 +160,8 @@ export const OrderPage = () => {
         </div>
         {!!cartProducts?.length && (
           <div className="order-cart__summary">
+            <span style={{fontSize: 16}}>Доставка: 350 ₽</span>
+            <br />
             Итого к оплате: {getCartSummary()} ₽
           </div>
         )}

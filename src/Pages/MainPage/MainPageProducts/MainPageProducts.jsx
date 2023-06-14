@@ -4,11 +4,9 @@ import { useSelector } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { LoadingOutlined } from '@ant-design/icons';
 import { ProductCard} from "./ProductCard";
-import { Button } from "../../../commonComponents/button";
 import { Fireflower } from "../../../Services/Fireflower/Fireflower";
-import {ProductModal} from "./ProductModal";
-import {message} from "../../../commonComponents/message/message";
-import {FIREFLOWER_URL} from "../../../Services/constants";
+import { ProductModal } from "./ProductModal";
+import { message } from "../../../commonComponents/message/message";
 
 // const PRODUCTS = Array.from({length: 6}, (_, i) => ({
 //   id: i+1,
@@ -37,7 +35,6 @@ import {FIREFLOWER_URL} from "../../../Services/constants";
 //   shop_id: `shop_${i+1}`,
 //   price: 1959
 // }));
-
 
 export const MainPageProducts = () => {
   const [productsList, setProductsList] = useState([]);
@@ -99,9 +96,9 @@ export const MainPageProducts = () => {
 
   const handleAddFeedback = (id, rate, comment) => {
     Fireflower.postProductRating({
-      product_id: id,
-      Rate: rate,
-      Comment: comment
+      id,
+      rate,
+      comment
     })
       .then(() => {
         setProductOpen(false);

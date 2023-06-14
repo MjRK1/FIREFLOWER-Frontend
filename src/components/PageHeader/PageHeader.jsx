@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import FIREFLOWER_ICON from '../../assets/images/fireflower-icon.png';
 import { Cart } from "../../common/Cart";
@@ -20,13 +20,21 @@ export const PageHeader = () => {
           src={FIREFLOWER_ICON}
           alt='icon'
         />
-        <span className="naming-container__name">
+        <motion.span
+          className="naming-container__name"
+        >
           FIREFLOWER
-        </span>
+        </motion.span>
       </div>
       <div className="page-header__slogan">
         <span style={{marginRight: 5, textTransform: 'uppercase', fontSize: 20}}>Ваши эмоции разгораются с</span>
-        <span className='naming-container__name'>FIREFLOWER</span>
+        <motion.div
+          className='naming-container__name'
+          onClick={() => navigate('/fireflower')}
+          whileTap={{scale: 1.02, transition: {duration: 0.1}}}
+        >
+          FIREFLOWER
+        </motion.div>
       </div>
       <Cart />
       <ProfileDrawer />

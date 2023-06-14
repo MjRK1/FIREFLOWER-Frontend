@@ -114,7 +114,7 @@ export const ProductModal = (props) => {
           <div className="feedback-wrapper__feedback-list">
             <div className="feedback-list__title">Отзывы:</div>
             {product?.rating.map(item => (
-              <div className="feedback-list__feedback-wrapper">
+              <div key={`product-feedback_${item?.id}`} className="feedback-list__feedback-wrapper">
                 <div className="feedback-wrapper__feedback-sender">
                   <div className="feedback-sender__avatar">O</div>
                   <div className="feedback-sender__name">Отправитель</div>

@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import {InputText} from "../../commonComponents/input/inputText";
+import { useNavigate } from 'react-router-dom';
+import { InputText } from "../../commonComponents/input/inputText";
 import QR_IMAGE from '../../assets/images/qr_image.png';
 
 export const ProfilePage = () => {
-  const userInfo = useSelector(state => state?.userInfo);
+  const [userInfo, setUserInfo] = useState(null);
 
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem('userMe'));
+    setUserInfo(user);
+  }, []);
+
+  const navigate = useNavigate();
+  if (!userInfo?.id) navigate('/fireflower');
   return (
     <div className="profile-page">
       <div className="profile-page__profile-wrapper">

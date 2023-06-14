@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserOutlined, MenuOutlined, MessageOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
@@ -11,8 +11,12 @@ export const ProfileDrawer = () => {
   const [isOpen, setOpen] = useState(false);
   const [isMailingOpen, setMailingOpen] = useState(false);
   const [isAuthOpen, setAuthOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
-  const userInfo = useSelector(state => state?.userInfo);
+  useEffect(() => {
+    let user = JSON.parse(localStorage.getItem('userMe'));
+    setUserInfo(user);
+  }, []);
   const navigate = useNavigate();
   const handleMailingOk = () => {
     //axios
@@ -25,7 +29,7 @@ export const ProfileDrawer = () => {
   };
 
   const handleOpenAuth = () => {
-    if (!userInfo) {
+    if (userInfo?.id) {
       navigate('/profile');
       setOpen(false);
     } else {

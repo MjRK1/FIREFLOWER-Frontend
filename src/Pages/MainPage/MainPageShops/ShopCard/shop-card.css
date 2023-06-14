@@ -1,5 +1,6 @@
 .shop-card {
   width: 450px;
+  cursor: pointer;
   margin-right: 30px;
   margin-bottom: 30px;
   height: auto;

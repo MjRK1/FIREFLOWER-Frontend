@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { LoadingOutlined } from '@ant-design/icons';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { nanoid } from 'nanoid';
-import SHOP_IMG from '../../../assets/images/shop.png';
 import { ShopCard } from "./ShopCard";
 import { message } from "../../../commonComponents/message/message";
 import { Fireflower } from "../../../Services/Fireflower/Fireflower";
@@ -33,13 +32,13 @@ export const MainPageShops = () => {
           }));
         setShopsList(shops);
         let shopsRating;
-        Fireflower.getProductRating()
+        Fireflower.getShopsRating()
           .then(response => {
             shopsRating = response?.data?.data[0];
             let newShops = shops.map(item => {
               let newRating = [];
               shopsRating.forEach(r => {
-                if (item?.id === r?.product_id) newRating.push(r);
+                if (item?.id === r?.shop_Id) newRating.push(r);
               });
               if (newRating?.length) {
                 return {...item, rating: [...item.rating, ...newRating]};
@@ -75,11 +74,7 @@ export const MainPageShops = () => {
   };
 
   const handleAddFeedback = (id, rate, comment) => {
-    Fireflower.postProductRating({
-      product_id: id,
-      Rate: rate,
-      Comment: comment
-    })
+    Fireflower.postShopRating(id, rate, comment)
       .then(() => {
         setShopOpen(false);
         message.success('Отзыв оставлен!');
@@ -94,14 +89,14 @@ export const MainPageShops = () => {
             rating: [],
           }));
         setShopsList(shops);
-        let shopsRating;
-        Fireflower.getProductRating()
+        let shopsRating = [];
+        Fireflower.getShopsRating()
           .then(response => {
             shopsRating = response?.data?.data[0];
             let newShops = shops.map(item => {
               let newRating = [];
               shopsRating.forEach(r => {
-                if (item?.id === r?.product_id) newRating.push(r);
+                if (item?.id === r?.shop_Id) newRating.push({...r, id: nanoid(3)});
               });
               if (newRating?.length) {
                 return {...item, rating: [...item.rating, ...newRating]};
@@ -131,12 +126,15 @@ export const MainPageShops = () => {
     </div>
   );
   return (
-    <div className="main-page-products">
-      <div className="main-page-products__products-list">
+    <div className="main-page-shops">
+      <div className="main-page-shops__shops-list">
         {shopsList?.map(item => (
           <ShopCard
             key={item?.id}
             shop={item}
+            rate={getAverageRating(item)}
+            rateCount={getRatingCount(item)}
+            setShopOpen={setShopOpen}
           />
         ))}
         <ShopModal
@@ -145,7 +143,7 @@ export const MainPageShops = () => {
           onSuccess={handleAddFeedback}
           getAverageRating={getAverageRating}
           getRatingCount={getRatingCount}
-          shop={isShopOpen?.product}
+          shop={isShopOpen?.shop}
         />
       </div>
     </div>
