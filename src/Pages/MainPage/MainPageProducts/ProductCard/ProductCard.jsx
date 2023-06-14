@@ -1,11 +1,14 @@
-import React  from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 import { StarFilled } from '@ant-design/icons';
 import FIREFLOWER from '../../../../assets/images/flower.png';
 import { Button } from "../../../../commonComponents/button";
+import { Fireflower } from "../../../../Services/Fireflower/Fireflower";
 
 
-export const ProductCard = ({product, onAddToCart, setProductOpen}) => {
+export const ProductCard = ({product, onAddToCart, rate, rateCount, setProductOpen}) => {
+
+
   return (
     <motion.div
       className="product-card"
@@ -37,8 +40,8 @@ export const ProductCard = ({product, onAddToCart, setProductOpen}) => {
       <div className="product-card__additional-info">
         <div className="additional-info__rate">
           <StarFilled style={{color: 'var(--color-orange1)', fontSize: 20, marginRight: 5}} />
-          <div className="rate__value">{product?.rating}</div>
-          <div className="rate__count">{product?.rating_count} отзывов</div>
+          <div className="rate__value">{rate ? rate : 'Отзывов нет'}</div>
+          {!!rate && (<div className="rate__count">{rateCount} отзывов</div>)}
         </div>
       </div>
     </motion.div>

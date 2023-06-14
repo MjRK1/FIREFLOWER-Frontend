@@ -25,7 +25,7 @@ export const ProfileDrawer = () => {
   };
 
   const handleOpenAuth = () => {
-    if (userInfo) {
+    if (!userInfo) {
       navigate('/profile');
       setOpen(false);
     } else {

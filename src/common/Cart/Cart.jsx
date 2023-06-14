@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { Drawer } from "../../commonComponents/drawer";
 import { Button } from "../../commonComponents/button";
-import {Fireflower} from "../../Services/Fireflower/Fireflower";
+import { Fireflower } from "../../Services/Fireflower/Fireflower";
+import FIREFLOWER from '../../assets/images/flower.png';
 
 
 export const Cart = () => {
@@ -112,7 +113,7 @@ export const Cart = () => {
         <div className="cart-drawer-container__products-list">
           {cartProducts?.map(item => (
             <div key={item?.id} className="products-list__products-item">
-              <img src={item?.image} alt='Розы' className='products-item__product-image' />
+              <img src={FIREFLOWER} alt='Розы' className='products-item__product-image' />
               <div className="products-item__product-info">
                 <div className="product-info__product-title">
                   {item?.name}

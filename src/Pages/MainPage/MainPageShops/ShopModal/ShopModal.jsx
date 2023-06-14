@@ -1,26 +1,32 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import { StarFilled, CarOutlined } from '@ant-design/icons';
 import { Rate } from 'antd';
-import { Button } from '../../../../../commonComponents/button';
-import { message } from "../../../../../commonComponents/message/message";
-import { Modal } from "../../../../../commonComponents/modal";
-import { TextArea } from "../../../../../commonComponents/input/textarea/textarea";
-import { FIREFLOWER_URL } from "../../../../../Services/constants";
+import { Button } from '../../../../commonComponents/button';
+import { message } from "../../../../commonComponents/message/message";
+import { Modal } from "../../../../commonComponents/modal";
+import { TextArea } from "../../../../commonComponents/input/textarea/textarea";
+import { FIREFLOWER_URL } from "../../../../Services/constants";
+import FIREFLOWER from '../../../../assets/images/flower.png';
 
 
-export const ProductModal = (props) => {
+export const ShopModal = (props) => {
   const {
     isProductOpen,
     setProductOpen,
     onClose,
+    onSuccess,
     product,
+    getRatingCount,
+    getAverageRating,
     onAddToCart
   } = props;
   const [commentValue, setCommentValue] = useState('');
   const [rateValue, setRateValue] = useState(0);
 
   const handleAddToCart = (e) => {
+    setRateValue(0);
+    setCommentValue('');
     onAddToCart(product, e);
     setProductOpen(false);
   };
@@ -32,24 +38,11 @@ export const ProductModal = (props) => {
   };
 
   const handleSuccess = () => {
-    message.loading('Загрузка...');
-    axios.post(`${FIREFLOWER_URL}rate_product`, {
-      product_id: product?.id,
-      rate: rateValue,
-      comment: commentValue
-    })
-      .then(resp => {
-        message.success(resp.data?.details);
-        setProductOpen(false);
-      })
-      .catch((error) => {
-        message.error(error);
-      });
+    onSuccess(product?.id, rateValue, commentValue);
     setRateValue(0);
     setCommentValue('');
     setProductOpen(false);
   };
-
 
   return (
     <Modal
@@ -61,7 +54,7 @@ export const ProductModal = (props) => {
       <div className="product-modal">
         <div className="product-modal__product-info">
           <div className="product-info__product-preview">
-            <img src={product?.image} alt="Цветочки" />
+            <img src={FIREFLOWER} alt="Цветочки" />
           </div>
           <div className="product-info__product-details">
             <div className="product-details__title">
@@ -70,10 +63,10 @@ export const ProductModal = (props) => {
             <div className="product-details__rating">
               <StarFilled style={{color: 'var(--color-orange1)', fontSize: 20, marginRight: 5}} />
               <div className="rating__rating-value">
-                {product?.rating}
+                {getAverageRating(product)}
               </div>
               <div className="rating__rating-count">
-                {product?.rating_count} оценок товара
+                {getRatingCount(product)} оценок товара
               </div>
             </div>
             <div className="product-details__delivery-info">
@@ -113,11 +106,31 @@ export const ProductModal = (props) => {
               <TextArea
                 style={{height: 100}}
                 value={commentValue}
+                placeholder='Напишите отзыв о товаре'
                 onChange={(e) => setCommentValue(e.target.value)}
               />
             </div>
           </div>
-          <div className="feedback-wrapper__feedback-list" />
+          <div className="feedback-wrapper__feedback-list">
+            <div className="feedback-list__title">Отзывы:</div>
+            {product?.rating.map(item => (
+              <div className="feedback-list__feedback-wrapper">
+                <div className="feedback-wrapper__feedback-sender">
+                  <div className="feedback-sender__avatar">O</div>
+                  <div className="feedback-sender__name">Отправитель</div>
+                </div>
+                <div className="feedback-wrapper__person-rate">
+                  <StarFilled style={{color: 'var(--color-orange1)', fontSize: 20, marginRight: 5}} />
+                  <span className="person-rate__value">{item?.rate}</span>
+                </div>
+                <div className="feedback-wrapper__comment-body">
+                  <div className="comment-body__title">Отзыв:</div>
+                  <div className="comment-body__value">{item?.comment}</div>
+                </div>
+              </div>
+            ))}
+            {!product?.rating?.length && 'Нет отзывов :('}
+          </div>
           <Button
             theme='black'
             width={200}

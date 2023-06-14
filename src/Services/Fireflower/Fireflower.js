@@ -2,8 +2,7 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { store } from '../ReduxState';
-const FIREFLOWER = 'localhost:5000/';
-
+import { FIREFLOWER_URL } from '../constants';
 
 export class Fireflower {
   static setUserInfo = (userInfo) => {
@@ -33,11 +32,17 @@ export class Fireflower {
   }
 
   static getProducts() {
-    return axios.get(`${FIREFLOWER}GetAllProduct`)
+    return axios.get(`${FIREFLOWER_URL}GetAllProduct`)
   }
-
+  static getProductRating() {
+    return axios.get(`${FIREFLOWER_URL}GetAllProductRaiting`)
+  }
+  static postProductRating(params) {
+    return axios
+      .post(`${FIREFLOWER_URL}AddProductRaiting?Rate=${params?.Rate}&Comment=${params.Comment}&product_id=${params.product_id}`)
+  }
   static auth(email, password) {
-    return axios.post(`${FIREFLOWER}auth/`, {
+    return axios.post(`${FIREFLOWER_URL}auth/`, {
       email: email,
       password: password,
       withCredentials: true
@@ -45,7 +50,7 @@ export class Fireflower {
   }
 
   static register(email, password, phone) {
-    return axios.post(`${FIREFLOWER}register/`, {
+    return axios.post(`${FIREFLOWER_URL}register/`, {
       email: email,
       password: password,
       phone: phone
@@ -54,27 +59,35 @@ export class Fireflower {
 
 
   static payment(params) {
-    return axios.post(`${FIREFLOWER}/api/payment`, {
+    return axios.post(`${FIREFLOWER_URL}payment`, {
       ...params
     })
   }
 
   static postCard(postcard_prompt) {
-    return axios.get(`${FIREFLOWER}post_card/`, {
+    return axios.get(`${FIREFLOWER_URL}post_card/`, {
       postcard_prompt: [...postcard_prompt]
     })
   }
 
   static rateProduct(product_id, rate, comment) {
-    return axios.post(`${FIREFLOWER}rate_product/`, {
+    return axios.post(`${FIREFLOWER_URL}rate_product/`, {
       product_id: product_id,
       rate: rate,
       comment: comment
     })
   }
 
+  static getShops() {
+    return axios.get(`${FIREFLOWER_URL}GetAllShop`)
+  }
+
+  static getShopsRating() {
+    return axios.get(`${FIREFLOWER_URL}GetRatingShop`)
+  }
+
   static rateShop(shop_id, rate, comment) {
-    return axios.post(`${FIREFLOWER}rate_shop/`, {
+    return axios.post(`${FIREFLOWER_URL}rate_shop/`, {
       product_id: shop_id,
       rate: rate,
       comment: comment
@@ -82,12 +95,8 @@ export class Fireflower {
   }
 
   static setMailing(id) {
-    return axios.post(`${FIREFLOWER}mailing/`, {
+    return axios.post(`${FIREFLOWER_URL}mailing/`, {
       user_id: id
     })
-  }
-
-  static getShops() {
-    return axios.get(`${FIREFLOWER}get_shops/`)
   }
 }
